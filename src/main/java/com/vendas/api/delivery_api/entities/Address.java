@@ -1,18 +1,14 @@
 package com.vendas.api.delivery_api.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Adress {
+public class Address {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -24,8 +20,14 @@ public class Adress {
     private String bairro;
     private String cidade;
 
-    private String longitude;
-    private String latitude;
+    private Double longitude;
+    private Double latitude;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+
+    private User user;
+
 
 
 

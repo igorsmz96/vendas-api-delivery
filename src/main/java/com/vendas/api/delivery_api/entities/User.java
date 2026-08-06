@@ -2,12 +2,12 @@ package com.vendas.api.delivery_api.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
 import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,8 +23,10 @@ public class User {
     private String email;
     private String password;
 
-    @Builder.Default
-    List<Adress> adresses = new ArrayList <>();
+    @OneToMany (mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    List<Address> addresses = new ArrayList <>();
 
 
 
