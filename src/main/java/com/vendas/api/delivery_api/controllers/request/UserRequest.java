@@ -6,6 +6,6 @@ public record UserRequest(String name,
                           String phone,
                           String email,
                           String password,
-                          List<AddressRequest> adresses) {
+                          List<AddressRequest> addresses) {
 
 }
