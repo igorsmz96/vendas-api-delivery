@@ -4,6 +4,7 @@ import com.vendas.api.delivery_api.controllers.request.AddressRequest;
 import com.vendas.api.delivery_api.controllers.request.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
+import com.vendas.api.delivery_api.controllers.response.UserUpdatePatialResponse;
 import com.vendas.api.delivery_api.entities.Address;
 import com.vendas.api.delivery_api.entities.User;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserMapper {
 
     private final AddressMapper addressMapper;
+
 
     public User toUser(UserRequest userRequest){
         User user = new User();
@@ -44,11 +46,21 @@ public class UserMapper {
 
 
        return new UserResponse (
+               user.getId(),
                user.getName(),
                user.getPhone(),
                user.getEmail(),
                addressResponse
        );
 
+    }
+
+    public UserUpdatePatialResponse toUpdateResponse(User user){
+        return new UserUpdatePatialResponse(
+                user.getId(),
+                user.getName(),
+                user.getPhone(),
+                user.getEmail()
+        );
     }
 }
