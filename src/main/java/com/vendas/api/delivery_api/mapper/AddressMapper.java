@@ -26,7 +26,8 @@ public record AddressMapper() {
         if (address == null) return null;
 
 
-        return new AddressResponse(address.getCep(),
+        return new AddressResponse(address.getId(),
+                address.getCep(),
                 address.getRua(),
                 address.getNumero(),
                 address.getBairro(),

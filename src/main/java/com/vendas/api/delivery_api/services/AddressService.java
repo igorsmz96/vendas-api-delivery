@@ -50,9 +50,13 @@ public class AddressService {
         return addressMapper.ToResponse(address);
     }
 
-    public AddressResponse updatePartialAddress (Long id, AddressRequest addressRequest) {
-        Address address = addressRepository.findById(id)
-                .orElseThrow(() -> new AddressNotFoundException());
+    public AddressResponse updatePartialAddress (Long userId, Long addressId, AddressRequest addressRequest) {
+
+        userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+        Address address = addressRepository.findByIdAndUserId(addressId, userId)
+                .orElseThrow(AddressNotFoundException::new);
 
         Optional.ofNullable(addressRequest.cep()).ifPresent(address::setCep);
         Optional.ofNullable(addressRequest.rua()).ifPresent(address::setRua);
@@ -62,6 +66,15 @@ public class AddressService {
 
        addressRepository.save(address);
        return addressMapper.ToResponse(address);
+    }
+    public void deleteById (Long userId, Long addressId) {
+        userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+        Address address = addressRepository.findByIdAndUserId(addressId, userId)
+                .orElseThrow(AddressNotFoundException::new);
+
+        addressRepository.delete(address);
+
     }
 
 
