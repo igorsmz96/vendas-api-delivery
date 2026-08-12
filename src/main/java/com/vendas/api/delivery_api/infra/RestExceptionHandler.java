@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.infra;
 
 import com.vendas.api.delivery_api.exception.AddressNotFoundException;
+import com.vendas.api.delivery_api.exception.CategoryNotFoundException;
 import com.vendas.api.delivery_api.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(AddressNotFoundException.class)
     private ResponseEntity<String> addressNotFoundHandler(AddressNotFoundException e){
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    @ExceptionHandler(CategoryNotFoundException.class)
+    private ResponseEntity<String> categoryNotFoundHandler(CategoryNotFoundException e){
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
