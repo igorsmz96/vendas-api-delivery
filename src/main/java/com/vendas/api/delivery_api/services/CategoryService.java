@@ -3,7 +3,7 @@ package com.vendas.api.delivery_api.services;
 import com.vendas.api.delivery_api.controllers.request.CategoryRequest;
 import com.vendas.api.delivery_api.controllers.response.CategoryResponse;
 import com.vendas.api.delivery_api.entities.Category;
-import com.vendas.api.delivery_api.exception.UserNotFoundException;
+import com.vendas.api.delivery_api.exception.CategoryNotFoundException;
 import com.vendas.api.delivery_api.mapper.CategoryMapper;
 import com.vendas.api.delivery_api.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +36,14 @@ public class CategoryService {
 
     public CategoryResponse findCategoryById(Long id){
         Category category = categoryRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CategoryNotFoundException::new);
         return categoryMapper.toResponse(category);
 
     }
 
     public CategoryResponse updatePartialCategory(Long id, CategoryRequest categoryRequest){
         Category category = categoryRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CategoryNotFoundException::new);
         Optional.ofNullable(categoryRequest.name()).ifPresent(category::setName);
         Optional.ofNullable(categoryRequest.description()).ifPresent(category::setDescription);
         categoryRepository.save(category);
@@ -52,7 +52,7 @@ public class CategoryService {
 
     public void deleteCategory(Long id){
         Category category = categoryRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CategoryNotFoundException::new);
         categoryRepository.delete(category);
 
     }

@@ -6,7 +6,8 @@ import java.math.BigDecimal;
 
 public record ProductRequest(String name,
                              String description,
-                             String imgageUrl,
+                             String imageUrl,
                              BigDecimal price,
-                             Category categoryId) {
+                             Long categoryId,
+                             Boolean active) {
 }

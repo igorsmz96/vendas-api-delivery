@@ -13,9 +13,10 @@ public class ProductMapper {
 
        product.setName(productRequest.name());
        product.setDescription(productRequest.description());
-       product.setImgageUrl(productRequest.imgageUrl());
+       product.setImageUrl(productRequest.imageUrl());
        product.setPrice(productRequest.price());
-       product.setCategory(productRequest.categoryId());
+       product.setActive(productRequest.active());
+
 
        return product;
     }
@@ -25,9 +26,10 @@ public class ProductMapper {
                 product.getId(),
                 product.getName(),
                 product.getDescription(),
-                product.getImgageUrl(),
+                product.getImageUrl(),
                 product.getPrice(),
-                product.getCategory().getName()
+                product.getCategory().getName(),
+                product.getActive()
                 );
     }
 
