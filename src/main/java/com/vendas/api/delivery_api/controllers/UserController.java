@@ -2,8 +2,6 @@ package com.vendas.api.delivery_api.controllers;
 
 import com.vendas.api.delivery_api.controllers.request.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
-import com.vendas.api.delivery_api.controllers.response.UserUpdatePatialResponse;
-import com.vendas.api.delivery_api.entities.User;
 
 import com.vendas.api.delivery_api.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +54,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserUpdatePatialResponse> upadatePartialUserById(@PathVariable Long id, @RequestBody UserRequest userRequest){
-        UserUpdatePatialResponse userResponse = userService.updatePartialUserById(id,userRequest);
+    public ResponseEntity<UserResponse> upadatePartialUserById(@PathVariable Long id, @RequestBody UserRequest userRequest){
+        UserResponse userResponse = userService.updatePartialUserById(id,userRequest);
        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 }

@@ -2,15 +2,12 @@ package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.request.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
-import com.vendas.api.delivery_api.controllers.response.UserUpdatePatialResponse;
 import com.vendas.api.delivery_api.entities.User;
 import com.vendas.api.delivery_api.exception.UserNotFoundException;
 import com.vendas.api.delivery_api.mapper.UserMapper;
 import com.vendas.api.delivery_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +60,7 @@ public class UserService {
         return userMapper.toResponse(user);
     }
 
-    public UserUpdatePatialResponse updatePartialUserById(Long id, UserRequest userRequest){
+    public UserResponse updatePartialUserById(Long id, UserRequest userRequest){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 

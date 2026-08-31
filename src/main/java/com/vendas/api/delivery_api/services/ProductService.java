@@ -66,6 +66,7 @@ public class ProductService {
         Optional.ofNullable(productRequest.description()).ifPresent(product::setDescription);
         Optional.ofNullable(productRequest.imageUrl()).ifPresent(product::setImageUrl);
         Optional.ofNullable(productRequest.price()).ifPresent(product::setPrice);
+        Optional.ofNullable(productRequest.active()).ifPresent(product::setActive);
         Optional.ofNullable(productRequest.categoryId()).ifPresent(categoryId -> {
             Category category = categoryRepository.findById(categoryId)
                     .orElseThrow(CategoryNotFoundException::new);

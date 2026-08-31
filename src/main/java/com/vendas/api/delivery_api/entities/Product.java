@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,11 +23,17 @@ public class Product {
     private String description;
     private String imageUrl;
     private BigDecimal price;
+    @Column(nullable = false)
     private Boolean active;
+
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-
     private Category category;
+
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductVariant> variants;
+
+
 
 }

@@ -19,8 +19,8 @@ public class CategoryMapper {
 
     }
 
-    public CategoryResponse toResponse (Category category) {
-        return new CategoryResponse(category.getId(),category.getName()
+    public CategoryResponse toResponse(Category category) {
+        return new CategoryResponse(category.getId(), category.getName()
         );
 
     }

@@ -6,7 +6,7 @@ import com.vendas.api.delivery_api.entities.Address;
 import org.springframework.stereotype.Component;
 
 @Component
-public record AddressMapper() {
+public class AddressMapper {
 
     public Address toAddress (AddressRequest addressRequest){
 
