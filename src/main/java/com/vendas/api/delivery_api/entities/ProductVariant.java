@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product_variant")
+@Table(name = "tb_product_variant")
 public class ProductVariant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,7 @@ public class ProductVariant {
     @Column(nullable = false, unique = true)
     private String sku;
     private BigDecimal price;
+    @Column(nullable = false)
     private Boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)

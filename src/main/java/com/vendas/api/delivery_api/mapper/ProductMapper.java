@@ -12,6 +12,7 @@ public class ProductMapper {
        Product product = new Product();
 
        product.setName(productRequest.name());
+       product.setMarca(productRequest.marca());
        product.setDescription(productRequest.description());
        product.setImageUrl(productRequest.imageUrl());
        product.setPrice(productRequest.price());
@@ -25,6 +26,7 @@ public class ProductMapper {
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
+                product.getMarca(),
                 product.getDescription(),
                 product.getImageUrl(),
                 product.getPrice(),
