@@ -1,18 +1,22 @@
 package com.vendas.api.delivery_api.entities;
 
+import com.vendas.api.delivery_api.config.Role;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.action.internal.OrphanRemovalAction;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "tb_user")
-public class User {
+@Table(name = "tb_user")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,12 +29,47 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-    @OneToMany (mappedBy = "user",
+    @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Address> addresses = new ArrayList <>();
+    private List<Address> addresses = new ArrayList<>();
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+    }
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

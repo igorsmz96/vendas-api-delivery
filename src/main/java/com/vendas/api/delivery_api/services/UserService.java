@@ -1,12 +1,15 @@
 package com.vendas.api.delivery_api.services;
 
+import com.vendas.api.delivery_api.config.Role;
 import com.vendas.api.delivery_api.controllers.request.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
 import com.vendas.api.delivery_api.entities.User;
 import com.vendas.api.delivery_api.exception.UserNotFoundException;
 import com.vendas.api.delivery_api.mapper.UserMapper;
 import com.vendas.api.delivery_api.repositories.UserRepository;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +21,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+
+
 
     public UserResponse createUser(UserRequest userRequest) {
         User user = userMapper.toUser(userRequest);
+        user.setPassword(passwordEncoder.encode(userRequest.password()));
+        user.setRole(Role.USER);
         userRepository.save(user);
 
 
@@ -70,7 +78,7 @@ public class UserService {
         Optional.ofNullable(userRequest.password()).ifPresent(user::setPassword);
 
        userRepository.save(user);
-       return userMapper.toUpdateResponse(user);
+       return userMapper.toResponse(user);
     }
 
 }

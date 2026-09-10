@@ -17,6 +17,7 @@ public class UserMapper {
     private final AddressMapper addressMapper;
 
 
+
     public User toUser(UserRequest userRequest){
         User user = new User();
 
@@ -48,18 +49,12 @@ public class UserMapper {
                user.getId(),
                user.getName(),
                user.getPhone(),
-               user.getEmail()
+               user.getEmail(),
+               user.getRole()
 
        );
 
     }
 
-    public UserResponse toUpdateResponse(User user){
-        return new UserResponse(
-                user.getId(),
-                user.getName(),
-                user.getPhone(),
-                user.getEmail()
-        );
-    }
+
 }
