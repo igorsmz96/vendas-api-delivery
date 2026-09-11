@@ -1,5 +1,6 @@
 package com.vendas.api.delivery_api.config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authorization.AuthorizationManagerFactory;
 import org.springframework.security.authorization.DefaultAuthorizationManagerFactory;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
     private final SecurityFilter securityFilter;
 
@@ -31,8 +34,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth.requestMatchers(HttpMethod.POST, "/product" , "/product/**","/category", "/store").hasRole("ADMIN")
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/users").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/product/**", "/store/**", "/category/**", "/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/users").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/product/**", "/store/**", "/category/**", "/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/product/**", "/store/**", "/category/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .anyRequest().authenticated())

@@ -33,7 +33,7 @@ public class AddressService {
         return addressMapper.ToResponse(address);
     }
 
-    public List<AddressResponse> findByUserId (Long userId) {
+    public List<AddressResponse> findAllByUserId (Long userId) {
        userRepository.findById(userId)
                .orElseThrow(UserNotFoundException::new);
 
@@ -41,10 +41,10 @@ public class AddressService {
        return  addresses.stream().map(addressMapper::ToResponse).toList();
     }
 
-    public AddressResponse findById (long userId, Long addressId) {
+    public AddressResponse findAddressById(long userId, Long addressId) {
         userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
-        Address address = addressRepository.findById(addressId)
+        Address address = addressRepository.findByIdAndUserId(addressId, userId)
                 .orElseThrow(AddressNotFoundException::new);
 
         return addressMapper.ToResponse(address);

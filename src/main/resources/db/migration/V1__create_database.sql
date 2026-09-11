@@ -28,8 +28,8 @@ CREATE TABLE tb_address
     numero  VARCHAR(255),
     bairro  VARCHAR(255),
     cidade  VARCHAR(255),
-    longitude DOUBLE,
-    latitude DOUBLE,
+    longitude DOUBLE PRECISION,
+    latitude DOUBLE PRECISION,
     user_id BIGINT,
 
     CONSTRAINT fk_address_user

@@ -35,6 +35,13 @@ public class UserService {
         return userMapper.toResponse(user);
     }
 
+    public UserResponse findMyUser (User userAuth){
+        User user = userRepository.findById(userAuth.getId())
+                .orElseThrow(UserNotFoundException::new);
+
+        return userMapper.toResponse(user);
+    }
+
     public List<UserResponse> findAllUsers(){
         List <User> findAll = userRepository.findAll();
 
@@ -46,6 +53,23 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         return userMapper.toResponse(user);
+    }
+
+    public UserResponse updateMyUser (User userAuth, UserRequest userRequest){
+        User user = userRepository.findById(userAuth.getId())
+                .orElseThrow(UserNotFoundException::new);
+
+        Optional.ofNullable(userRequest.name()).ifPresent(user::setName);
+        Optional.ofNullable(userRequest.phone()).ifPresent(user::setPhone);
+        Optional.ofNullable(userRequest.email()).ifPresent(user::setEmail);
+        Optional.ofNullable(userRequest.password()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
+        return userMapper.toResponse(user);
+    }
+
+    public void deleteMyUser (User userAuth){
+        User user = userRepository.findById(userAuth.getId())
+                .orElseThrow(UserNotFoundException::new);
+        userRepository.delete(user);
     }
 
     public void deleteUserById (Long id) {
@@ -61,7 +85,7 @@ public class UserService {
         user.setName(userRequest.name());
         user.setPhone(userRequest.phone());
         user.setEmail(userRequest.email());
-        user.setPassword(userRequest.password());
+        Optional.ofNullable(userRequest.password()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
 
         userRepository.save(user);
 
@@ -75,7 +99,7 @@ public class UserService {
         Optional.ofNullable(userRequest.name()).ifPresent(user::setName);
         Optional.ofNullable(userRequest.phone()).ifPresent(user::setPhone);
         Optional.ofNullable(userRequest.email()).ifPresent(user::setEmail);
-        Optional.ofNullable(userRequest.password()).ifPresent(user::setPassword);
+        Optional.ofNullable(userRequest.password()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
 
        userRepository.save(user);
        return userMapper.toResponse(user);

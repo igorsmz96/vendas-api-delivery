@@ -2,22 +2,22 @@ package com.vendas.api.delivery_api.controllers;
 
 import com.vendas.api.delivery_api.controllers.request.AddressRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
-import com.vendas.api.delivery_api.repositories.AddressRepository;
 import com.vendas.api.delivery_api.services.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users/{userId}/address")
+@RequestMapping("/admin/users/{userId}/address")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class AddressController {
 
     private final AddressService addressService;
-    private final AddressRepository addressRepository;
 
     @PostMapping
     public ResponseEntity<AddressResponse> createAddress(@PathVariable Long userId, @RequestBody AddressRequest addressRequest){
@@ -26,13 +26,13 @@ public class AddressController {
     }
     @GetMapping
     public ResponseEntity<List<AddressResponse>> findAllByUser(@PathVariable Long userId){
-        List<AddressResponse> addressResponse = addressService.findByUserId(userId);
+        List<AddressResponse> addressResponse = addressService.findAllByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AddressResponse> findById(@PathVariable Long userId, @PathVariable("id") Long addressId){
-        AddressResponse addressResponse = addressService.findById(userId,addressId);
+        AddressResponse addressResponse = addressService.findAddressById(userId,addressId);
         return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
     }
     @PatchMapping("/{id}")

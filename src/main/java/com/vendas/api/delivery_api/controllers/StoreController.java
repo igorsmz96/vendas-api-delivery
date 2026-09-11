@@ -43,7 +43,7 @@ public class StoreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StoreResponse> deleteStore(@PathVariable Long id){
+    public ResponseEntity<Void> deleteStore(@PathVariable Long id){
         storeService.deleteStore(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -20,12 +20,12 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory (@RequestBody CategoryRequest categoryRequest){
         CategoryResponse categoryResponse = categoryService.createCategory(categoryRequest);
-        return ResponseEntity.ok().body(categoryResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponse);
     }
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> findAll(){
         List <CategoryResponse> categoryResponse = categoryService.findAllCategories();
-        return ResponseEntity.ok().body(categoryResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(categoryResponse);
 
     }
     @GetMapping("/{id}")
