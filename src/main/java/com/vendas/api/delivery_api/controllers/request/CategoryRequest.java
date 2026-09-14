@@ -1,5 +1,7 @@
 package com.vendas.api.delivery_api.controllers.request;
 
-public record CategoryRequest(String name,
-                              String description) {
+import jakarta.validation.constraints.NotBlank;
+
+public record CategoryRequest(@NotBlank(message = "Nome é obrigatório") String name,
+                             String description) {
 }

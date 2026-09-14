@@ -1,9 +1,12 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.request.StoreRequest;
+import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.controllers.response.StoreResponse;
 import com.vendas.api.delivery_api.entities.Address;
+import com.vendas.api.delivery_api.entities.Product;
 import com.vendas.api.delivery_api.entities.Store;
+import com.vendas.api.delivery_api.exception.ProductNotFoundException;
 import com.vendas.api.delivery_api.exception.StoreNotFoundException;
 import com.vendas.api.delivery_api.mapper.AddressMapper;
 import com.vendas.api.delivery_api.mapper.StoreMapper;
@@ -49,7 +52,6 @@ public class StoreService {
         Optional.ofNullable(storeRequest.name()).ifPresent(store::setName);
         Optional.ofNullable(storeRequest.cnpj()).ifPresent(store::setCnpj);
         Optional.ofNullable(storeRequest.phone()).ifPresent(store::setPhone);
-        Optional.ofNullable(storeRequest.active()).ifPresent(store::setActive);
         Optional.ofNullable(storeRequest.address()).ifPresent(addressRequest -> {
            Address address =  addressMapper.toAddress(addressRequest);
             store.setAddress(address);
@@ -62,6 +64,14 @@ public class StoreService {
         Store store = storeRepository.findById(id)
                 .orElseThrow(StoreNotFoundException::new);
         storeRepository.delete(store);
+    }
+
+    public StoreResponse updateStoreActive (Long id, Boolean active) {
+        Store store = storeRepository.findById(id)
+                .orElseThrow(StoreNotFoundException::new);
+        store.setActive(active);
+        storeRepository.save(store);
+        return storeMapper.toResponse(store);
     }
 
 

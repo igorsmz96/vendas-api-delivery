@@ -17,13 +17,18 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String cnpj;
+
+    @Column(nullable = false)
     private String phone;
     @Column(nullable = false)
     private Boolean active = true;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 }

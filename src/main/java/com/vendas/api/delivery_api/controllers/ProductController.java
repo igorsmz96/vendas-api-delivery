@@ -1,8 +1,10 @@
 package com.vendas.api.delivery_api.controllers;
 
+import com.vendas.api.delivery_api.controllers.request.ActiveRequest;
 import com.vendas.api.delivery_api.controllers.request.ProductRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.services.ProductService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,6 +57,11 @@ public class ProductController {
     public ResponseEntity<ProductResponse> deleteProductById(@PathVariable Long id){
         productService.deleteProductById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    @PatchMapping("/{id}/active")
+    public ResponseEntity<ProductResponse> updateProductActive(@PathVariable Long id, @Valid @RequestBody ActiveRequest activeRequest){
+        ProductResponse productResponse = productService.updateProductActive(id,activeRequest.active());
+                return ResponseEntity.status(HttpStatus.OK).body(productResponse);
     }
 
 

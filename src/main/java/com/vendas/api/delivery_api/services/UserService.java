@@ -63,6 +63,7 @@ public class UserService {
         Optional.ofNullable(userRequest.phone()).ifPresent(user::setPhone);
         Optional.ofNullable(userRequest.email()).ifPresent(user::setEmail);
         Optional.ofNullable(userRequest.password()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
+        userRepository.save(user);
         return userMapper.toResponse(user);
     }
 
@@ -77,19 +78,6 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
         userRepository.delete(user);
 
-    }
-    public UserResponse updateUserById(Long id, UserRequest userRequest){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
-
-        user.setName(userRequest.name());
-        user.setPhone(userRequest.phone());
-        user.setEmail(userRequest.email());
-        Optional.ofNullable(userRequest.password()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
-
-        userRepository.save(user);
-
-        return userMapper.toResponse(user);
     }
 
     public UserResponse updatePartialUserById(Long id, UserRequest userRequest){

@@ -38,14 +38,14 @@ public class User implements UserDetails {
             orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_" + this.role.name())
+        );
     }
 
     @Override

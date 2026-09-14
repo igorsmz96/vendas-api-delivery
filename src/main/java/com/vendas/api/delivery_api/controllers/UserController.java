@@ -5,6 +5,7 @@ import com.vendas.api.delivery_api.controllers.response.UserResponse;
 
 import com.vendas.api.delivery_api.entities.User;
 import com.vendas.api.delivery_api.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UserController {
 
     // Publico todos podem acessar
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.createUser(userRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
@@ -47,18 +48,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUserById(@PathVariable Long id, @RequestBody UserRequest userRequest) {
-        UserResponse userResponse = userService.updateUserById(id, userRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
-    }
-
-
     // **ADMIN** setado no security config
     @PatchMapping("/{id}")
-    public ResponseEntity<UserResponse> upadatePartialUserById(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> upadatePartialUserById(@PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.updatePartialUserById(id, userRequest);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
@@ -79,7 +71,7 @@ public class UserController {
 
     // atualizar meu perfil
     @PatchMapping
-    public ResponseEntity<UserResponse> updateMyUser(@AuthenticationPrincipal User userAuth, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> updateMyUser(@AuthenticationPrincipal User userAuth, @Valid @RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.updateMyUser(userAuth, userRequest);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }

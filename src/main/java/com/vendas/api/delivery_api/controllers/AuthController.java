@@ -34,7 +34,6 @@ public class AuthController {
         try {
             UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
             Authentication auth = authenticationManager.authenticate(userAndPass);
-            System.out.println(auth.getAuthorities());
 
             String token = tokenConfig.generateToken(auth);
 

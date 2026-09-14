@@ -18,7 +18,7 @@ public class ProductVariantMapper {
         productVariant.setColor(productVariantRequest.color());
         productVariant.setSku(productVariantRequest.sku());
         productVariant.setPrice(productVariantRequest.price());
-        productVariant.setActive(productVariantRequest.active());
+
 
         return productVariant;
 

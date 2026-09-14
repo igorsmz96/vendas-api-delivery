@@ -18,7 +18,6 @@ public class StoreMapper {
         store.setName(storeRequest.name());
         store.setCnpj(storeRequest.cnpj());
         store.setPhone(storeRequest.phone());
-        store.setActive(storeRequest.active());
         store.setAddress(addressMapper.toAddress(storeRequest.address()));
 
 

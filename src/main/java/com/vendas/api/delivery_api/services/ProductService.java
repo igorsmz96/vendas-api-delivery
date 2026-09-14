@@ -1,5 +1,6 @@
 package com.vendas.api.delivery_api.services;
 
+import com.vendas.api.delivery_api.controllers.request.ActiveRequest;
 import com.vendas.api.delivery_api.controllers.request.ProductRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.entities.Category;
@@ -66,7 +67,6 @@ public class ProductService {
         Optional.ofNullable(productRequest.description()).ifPresent(product::setDescription);
         Optional.ofNullable(productRequest.imageUrl()).ifPresent(product::setImageUrl);
         Optional.ofNullable(productRequest.price()).ifPresent(product::setPrice);
-        Optional.ofNullable(productRequest.active()).ifPresent(product::setActive);
         Optional.ofNullable(productRequest.categoryId()).ifPresent(categoryId -> {
             Category category = categoryRepository.findById(categoryId)
                     .orElseThrow(CategoryNotFoundException::new);
@@ -82,6 +82,14 @@ public class ProductService {
                 .orElseThrow(ProductNotFoundException::new);
 
         productRepository.delete(product);
+    }
+
+    public ProductResponse updateProductActive (Long id, Boolean active) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(ProductNotFoundException::new);
+        product.setActive(active);
+        productRepository.save(product);
+        return productMapper.toResponse(product);
     }
 
 
