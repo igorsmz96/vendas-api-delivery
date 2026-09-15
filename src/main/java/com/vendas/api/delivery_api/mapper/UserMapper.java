@@ -1,10 +1,9 @@
 package com.vendas.api.delivery_api.mapper;
 
 
-import com.vendas.api.delivery_api.controllers.request.UserRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
 import com.vendas.api.delivery_api.entities.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 

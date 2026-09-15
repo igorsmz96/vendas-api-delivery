@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.mapper;
 
-import com.vendas.api.delivery_api.controllers.request.ProductVariantRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.ProductVariantRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductVariantResponse;
 import com.vendas.api.delivery_api.entities.ProductVariant;
 import lombok.RequiredArgsConstructor;

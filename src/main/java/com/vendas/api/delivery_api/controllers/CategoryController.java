@@ -1,9 +1,10 @@
 package com.vendas.api.delivery_api.controllers;
 
 
-import com.vendas.api.delivery_api.controllers.request.CategoryRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.CategoryRequest;
 import com.vendas.api.delivery_api.controllers.response.CategoryResponse;
 import com.vendas.api.delivery_api.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory (@RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> createCategory (@Valid @RequestBody CategoryRequest categoryRequest){
         CategoryResponse categoryResponse = categoryService.createCategory(categoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponse);
     }
@@ -35,7 +36,7 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updatePartialCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> updatePartialCategory(@PathVariable Long id, @Valid @RequestBody CategoryRequest categoryRequest){
         CategoryResponse categoryResponse = categoryService.updatePartialCategory(id,categoryRequest);
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponse);
     }

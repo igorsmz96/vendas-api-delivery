@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.controllers;
 
-import com.vendas.api.delivery_api.controllers.request.UserRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
 
 import com.vendas.api.delivery_api.entities.User;

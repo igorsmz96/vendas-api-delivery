@@ -79,6 +79,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
+    @ExceptionHandler(DuplicateDataException.class)
+    private ResponseEntity<ErroResposta> duplicateDataHandler(DuplicateDataException e) {
+        ErroResposta erro = new ErroResposta(
+                HttpStatus.CONFLICT.value(),
+                "Recurso Invalido",
+                        e.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
@@ -100,6 +109,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 
     }
+
 
 
 

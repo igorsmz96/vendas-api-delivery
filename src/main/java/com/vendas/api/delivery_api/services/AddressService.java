@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.services;
 
-import com.vendas.api.delivery_api.controllers.request.AddressRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.AddressRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.entities.Address;
 import com.vendas.api.delivery_api.entities.User;

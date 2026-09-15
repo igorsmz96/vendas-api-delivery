@@ -1,8 +1,9 @@
 package com.vendas.api.delivery_api.controllers;
 
-import com.vendas.api.delivery_api.controllers.request.AddressRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.AddressRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.services.AddressService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @PostMapping
-    public ResponseEntity<AddressResponse> createAddress(@PathVariable Long userId, @RequestBody AddressRequest addressRequest){
+    public ResponseEntity<AddressResponse> createAddress(@PathVariable Long userId, @Valid @RequestBody AddressRequest addressRequest){
         AddressResponse addressResponse = addressService.createAddress(userId, addressRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(addressResponse);
     }
@@ -36,7 +37,7 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
     }
     @PatchMapping("/{id}")
-   public ResponseEntity<AddressResponse> updatePartial( @PathVariable Long userId,@PathVariable("id") Long addressId, @RequestBody AddressRequest addressRequest){
+   public ResponseEntity<AddressResponse> updatePartial( @PathVariable Long userId,@PathVariable("id") Long addressId,@Valid @RequestBody AddressRequest addressRequest){
        AddressResponse addressResponse = addressService.updatePartialAddress(userId,addressId,addressRequest);
     return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
    }

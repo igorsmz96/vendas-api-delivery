@@ -1,11 +1,10 @@
 package com.vendas.api.delivery_api.controllers;
 
-import com.vendas.api.delivery_api.controllers.request.ActiveRequest;
-import com.vendas.api.delivery_api.controllers.request.ProductRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.ActiveRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.ProductRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.services.ProductService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.createProduct(productRequest);
                 return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
 
@@ -40,7 +39,7 @@ public class ProductController {
 
     }
     @PatchMapping("/{id}")
-    public ResponseEntity <ProductResponse> updateProductPartial(@PathVariable Long id, @RequestBody ProductRequest productRequest){
+    public ResponseEntity <ProductResponse> updateProductPartial(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest){
         ProductResponse product = productService.updateProductPartial(id,productRequest);
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }

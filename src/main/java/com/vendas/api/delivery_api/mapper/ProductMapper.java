@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.mapper;
 
-import com.vendas.api.delivery_api.controllers.request.ProductRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.ProductRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.entities.Product;
 import org.springframework.stereotype.Component;

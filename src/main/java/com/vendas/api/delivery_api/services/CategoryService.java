@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.services;
 
-import com.vendas.api.delivery_api.controllers.request.CategoryRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.CategoryRequest;
 import com.vendas.api.delivery_api.controllers.response.CategoryResponse;
 import com.vendas.api.delivery_api.entities.Category;
 import com.vendas.api.delivery_api.exception.CategoryNotFoundException;

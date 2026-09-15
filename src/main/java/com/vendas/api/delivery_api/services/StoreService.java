@@ -1,12 +1,9 @@
 package com.vendas.api.delivery_api.services;
 
-import com.vendas.api.delivery_api.controllers.request.StoreRequest;
-import com.vendas.api.delivery_api.controllers.response.ProductResponse;
+import com.vendas.api.delivery_api.controllers.requestCreate.StoreRequest;
 import com.vendas.api.delivery_api.controllers.response.StoreResponse;
 import com.vendas.api.delivery_api.entities.Address;
-import com.vendas.api.delivery_api.entities.Product;
 import com.vendas.api.delivery_api.entities.Store;
-import com.vendas.api.delivery_api.exception.ProductNotFoundException;
 import com.vendas.api.delivery_api.exception.StoreNotFoundException;
 import com.vendas.api.delivery_api.mapper.AddressMapper;
 import com.vendas.api.delivery_api.mapper.StoreMapper;

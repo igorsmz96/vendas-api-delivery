@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.mapper;
 
-import com.vendas.api.delivery_api.controllers.request.StoreRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.StoreRequest;
 import com.vendas.api.delivery_api.controllers.response.StoreResponse;
 import com.vendas.api.delivery_api.entities.Store;
 import lombok.RequiredArgsConstructor;

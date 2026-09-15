@@ -1,9 +1,10 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.config.Role;
-import com.vendas.api.delivery_api.controllers.request.UserRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
 import com.vendas.api.delivery_api.entities.User;
+import com.vendas.api.delivery_api.exception.DuplicateDataException;
 import com.vendas.api.delivery_api.exception.UserNotFoundException;
 import com.vendas.api.delivery_api.mapper.UserMapper;
 import com.vendas.api.delivery_api.repositories.UserRepository;
@@ -26,11 +27,13 @@ public class UserService {
 
 
     public UserResponse createUser(UserRequest userRequest) {
+        if (userRepository.existsByEmail(userRequest.email())) {
+            throw new DuplicateDataException("Email já cadastrado");
+        }
         User user = userMapper.toUser(userRequest);
         user.setPassword(passwordEncoder.encode(userRequest.password()));
         user.setRole(Role.USER);
         userRepository.save(user);
-
 
         return userMapper.toResponse(user);
     }

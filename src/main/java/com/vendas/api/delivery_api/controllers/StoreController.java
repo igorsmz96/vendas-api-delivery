@@ -1,9 +1,8 @@
 package com.vendas.api.delivery_api.controllers;
 
 
-import com.vendas.api.delivery_api.controllers.request.ActiveRequest;
-import com.vendas.api.delivery_api.controllers.request.StoreRequest;
-import com.vendas.api.delivery_api.controllers.response.ProductResponse;
+import com.vendas.api.delivery_api.controllers.requestCreate.ActiveRequest;
+import com.vendas.api.delivery_api.controllers.requestCreate.StoreRequest;
 import com.vendas.api.delivery_api.controllers.response.StoreResponse;
 import com.vendas.api.delivery_api.services.StoreService;
 import jakarta.validation.Valid;
@@ -22,7 +21,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping
-    public ResponseEntity<StoreResponse> createStore(@RequestBody StoreRequest storeRequest){
+    public ResponseEntity<StoreResponse> createStore(@Valid @RequestBody StoreRequest storeRequest){
         StoreResponse storeResponse = storeService.createStore(storeRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(storeResponse);
     }
@@ -40,7 +39,7 @@ public class StoreController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<StoreResponse> updatePartialStore(@PathVariable Long id, @RequestBody StoreRequest storeRequest){
+    public ResponseEntity<StoreResponse> updatePartialStore(@PathVariable Long id, @Valid @RequestBody StoreRequest storeRequest){
         StoreResponse storeResponse = storeService.updatePartialStore(id, storeRequest);
         return ResponseEntity.status(HttpStatus.OK).body(storeResponse);
     }
