@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.entities;
 
-import com.vendas.api.delivery_api.config.Role;
+import com.vendas.api.delivery_api.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

@@ -18,13 +18,16 @@ public class ProductVariant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String size;
 
     @Column(nullable = false)
     private String color;
+
     @Column(nullable = false, unique = true)
     private String sku;
+
     @Column(nullable = false)
     private BigDecimal price;
 

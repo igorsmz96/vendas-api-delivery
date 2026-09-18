@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.mapper;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.ProductVariantRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.ProductVariantPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductVariantResponse;
 import com.vendas.api.delivery_api.entities.ProductVariant;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class ProductVariantMapper {
         return productVariant;
 
     }
+
 
     public ProductVariantResponse toProductVariantResponse(ProductVariant productVariant) {
         return new ProductVariantResponse(

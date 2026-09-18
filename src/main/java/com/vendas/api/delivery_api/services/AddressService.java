@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.AddressRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.AddressPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.entities.Address;
 import com.vendas.api.delivery_api.entities.User;
@@ -50,7 +51,7 @@ public class AddressService {
         return addressMapper.ToResponse(address);
     }
 
-    public AddressResponse updatePartialAddress (Long userId, Long addressId, AddressRequest addressRequest) {
+    public AddressResponse updatePartialAddress (Long userId, Long addressId, AddressPatchRequest addressPatchRequest) {
 
         userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
@@ -58,11 +59,11 @@ public class AddressService {
         Address address = addressRepository.findByIdAndUserId(addressId, userId)
                 .orElseThrow(AddressNotFoundException::new);
 
-        Optional.ofNullable(addressRequest.cep()).ifPresent(address::setCep);
-        Optional.ofNullable(addressRequest.rua()).ifPresent(address::setRua);
-        Optional.ofNullable(addressRequest.numero()).ifPresent(address::setNumero);
-        Optional.ofNullable(addressRequest.bairro()).ifPresent(address::setBairro);
-        Optional.ofNullable(addressRequest.cidade()).ifPresent(address::setCidade);
+        Optional.ofNullable(addressPatchRequest.cep()).ifPresent(address::setCep);
+        Optional.ofNullable(addressPatchRequest.rua()).ifPresent(address::setRua);
+        Optional.ofNullable(addressPatchRequest.numero()).ifPresent(address::setNumero);
+        Optional.ofNullable(addressPatchRequest.bairro()).ifPresent(address::setBairro);
+        Optional.ofNullable(addressPatchRequest.cidade()).ifPresent(address::setCidade);
 
        addressRepository.save(address);
        return addressMapper.ToResponse(address);

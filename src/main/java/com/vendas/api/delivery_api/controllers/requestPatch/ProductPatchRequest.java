@@ -1,5 +1,7 @@
 package com.vendas.api.delivery_api.controllers.requestPatch;
 
+import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
 
 public record ProductPatchRequest(
@@ -7,7 +9,7 @@ public record ProductPatchRequest(
         String marca,
         String description,
         String imageUrl,
-        BigDecimal price,
+        @Positive BigDecimal price,
         Long categoryId
 ) {
 }

@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.services;
 
-import com.vendas.api.delivery_api.config.Role;
+import com.vendas.api.delivery_api.enums.Role;
 import com.vendas.api.delivery_api.controllers.requestCreate.UserRequest;
 import com.vendas.api.delivery_api.controllers.response.UserResponse;
 import com.vendas.api.delivery_api.entities.User;

@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.CategoryRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.CategoryPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.CategoryResponse;
 import com.vendas.api.delivery_api.entities.Category;
 import com.vendas.api.delivery_api.exception.CategoryNotFoundException;
@@ -41,11 +42,11 @@ public class CategoryService {
 
     }
 
-    public CategoryResponse updatePartialCategory(Long id, CategoryRequest categoryRequest){
+    public CategoryResponse updatePartialCategory(Long id, CategoryPatchRequest categoryPatchRequest){
         Category category = categoryRepository.findById(id)
                 .orElseThrow(CategoryNotFoundException::new);
-        Optional.ofNullable(categoryRequest.name()).ifPresent(category::setName);
-        Optional.ofNullable(categoryRequest.description()).ifPresent(category::setDescription);
+        Optional.ofNullable(categoryPatchRequest.name()).ifPresent(category::setName);
+        Optional.ofNullable(categoryPatchRequest.description()).ifPresent(category::setDescription);
         categoryRepository.save(category);
         return categoryMapper.toResponse(category);
     }

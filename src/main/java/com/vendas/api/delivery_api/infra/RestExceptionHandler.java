@@ -88,6 +88,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
     }
+    @ExceptionHandler(ProductVariantNotFoundException.class)
+    private ResponseEntity<ErroResposta> ProductVariantNotFoundException(ProductVariantNotFoundException e) {
+        ErroResposta erro = new ErroResposta(
+                HttpStatus.NOT_FOUND.value(),
+                "Recurso nao encontrado",
+                e.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,

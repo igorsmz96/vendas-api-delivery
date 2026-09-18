@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.StoreRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.StorePatchRequest;
 import com.vendas.api.delivery_api.controllers.response.StoreResponse;
 import com.vendas.api.delivery_api.entities.Address;
 import com.vendas.api.delivery_api.entities.Store;
@@ -42,17 +43,17 @@ public class StoreService {
         return storeMapper.toResponse(store);
     }
 
-    public StoreResponse updatePartialStore(Long id, StoreRequest storeRequest) {
+    public StoreResponse updatePartialStore(Long id, StorePatchRequest storePatchRequest) {
         Store store = storeRepository.findById(id)
                 .orElseThrow(StoreNotFoundException::new);
 
-        Optional.ofNullable(storeRequest.name()).ifPresent(store::setName);
-        Optional.ofNullable(storeRequest.cnpj()).ifPresent(store::setCnpj);
-        Optional.ofNullable(storeRequest.phone()).ifPresent(store::setPhone);
-        Optional.ofNullable(storeRequest.address()).ifPresent(addressRequest -> {
-           Address address =  addressMapper.toAddress(addressRequest);
-            store.setAddress(address);
-        } );
+        Optional.ofNullable(storePatchRequest.name()).ifPresent(store::setName);
+        Optional.ofNullable(storePatchRequest.cnpj()).ifPresent(store::setCnpj);
+        Optional.ofNullable(storePatchRequest.phone()).ifPresent(store::setPhone);
+
+        Optional.ofNullable(storePatchRequest.address()).ifPresent(addressPatchRequest ->
+                addressMapper.updatePartial(addressPatchRequest, store.getAddress()));
+
         storeRepository.save(store);
         return storeMapper.toResponse(store);
     }

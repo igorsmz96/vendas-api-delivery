@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface ProductVariantRepository extends JpaRepository<ProductVariant, Long> {
 
     List<ProductVariant> findByProductId(Long productId);
-    Optional<ProductVariant> findByProductIdAndId(Long productId, Long variantId);
+    Optional<ProductVariant> findByIdAndProductId(Long variantId, Long productId);
     boolean existsBySku(String sku);
+    boolean existsByIdNotAndSku(Long variantId, String sku);
 
 }

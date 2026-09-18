@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.controllers;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.AddressRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.AddressPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.services.AddressService;
 import jakarta.validation.Valid;
@@ -37,8 +38,8 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
     }
     @PatchMapping("/{id}")
-   public ResponseEntity<AddressResponse> updatePartial( @PathVariable Long userId,@PathVariable("id") Long addressId,@Valid @RequestBody AddressRequest addressRequest){
-       AddressResponse addressResponse = addressService.updatePartialAddress(userId,addressId,addressRequest);
+   public ResponseEntity<AddressResponse> updatePartial( @PathVariable Long userId,@PathVariable("id") Long addressId,@Valid @RequestBody AddressPatchRequest addressPatchRequest){
+       AddressResponse addressResponse = addressService.updatePartialAddress(userId,addressId,addressPatchRequest);
     return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
    }
    @DeleteMapping("/{id}")

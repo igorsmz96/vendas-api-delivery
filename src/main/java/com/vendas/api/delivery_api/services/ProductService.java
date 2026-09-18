@@ -1,6 +1,7 @@
 package com.vendas.api.delivery_api.services;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.ProductRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.ProductPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.entities.Category;
 import com.vendas.api.delivery_api.entities.Product;
@@ -58,15 +59,15 @@ public class ProductService {
 
     }
 
-    public ProductResponse updateProductPartial(Long id, ProductRequest productRequest) {
+    public ProductResponse updateProductPartial(Long id, ProductPatchRequest productPatchRequest) {
         Product product = productRepository.findById(id)
                 .orElseThrow(ProductNotFoundException::new);
 
-        Optional.ofNullable(productRequest.name()).ifPresent(product::setName);
-        Optional.ofNullable(productRequest.description()).ifPresent(product::setDescription);
-        Optional.ofNullable(productRequest.imageUrl()).ifPresent(product::setImageUrl);
-        Optional.ofNullable(productRequest.price()).ifPresent(product::setPrice);
-        Optional.ofNullable(productRequest.categoryId()).ifPresent(categoryId -> {
+        Optional.ofNullable(productPatchRequest.name()).ifPresent(product::setName);
+        Optional.ofNullable(productPatchRequest.description()).ifPresent(product::setDescription);
+        Optional.ofNullable(productPatchRequest.imageUrl()).ifPresent(product::setImageUrl);
+        Optional.ofNullable(productPatchRequest.price()).ifPresent(product::setPrice);
+        Optional.ofNullable(productPatchRequest.categoryId()).ifPresent(categoryId -> {
             Category category = categoryRepository.findById(categoryId)
                     .orElseThrow(CategoryNotFoundException::new);
             product.setCategory(category);

@@ -1,6 +1,6 @@
 package com.vendas.api.delivery_api.controllers.response;
 
-import com.vendas.api.delivery_api.config.Role;
+import com.vendas.api.delivery_api.enums.Role;
 
 public record UserResponse(Long id,
                            String name,

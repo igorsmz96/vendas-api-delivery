@@ -2,6 +2,7 @@ package com.vendas.api.delivery_api.controllers;
 
 
 import com.vendas.api.delivery_api.controllers.requestCreate.CategoryRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.CategoryPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.CategoryResponse;
 import com.vendas.api.delivery_api.services.CategoryService;
 import jakarta.validation.Valid;
@@ -36,8 +37,8 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updatePartialCategory(@PathVariable Long id, @Valid @RequestBody CategoryRequest categoryRequest){
-        CategoryResponse categoryResponse = categoryService.updatePartialCategory(id,categoryRequest);
+    public ResponseEntity<CategoryResponse> updatePartialCategory(@PathVariable Long id, @Valid @RequestBody CategoryPatchRequest categoryPatchRequest){
+        CategoryResponse categoryResponse = categoryService.updatePartialCategory(id,categoryPatchRequest);
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponse);
     }
 

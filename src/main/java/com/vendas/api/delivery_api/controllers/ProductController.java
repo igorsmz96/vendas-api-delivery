@@ -2,6 +2,7 @@ package com.vendas.api.delivery_api.controllers;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.ActiveRequest;
 import com.vendas.api.delivery_api.controllers.requestCreate.ProductRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.ProductPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.ProductResponse;
 import com.vendas.api.delivery_api.services.ProductService;
 import jakarta.validation.Valid;
@@ -38,11 +39,6 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(product);
 
     }
-    @PatchMapping("/{id}")
-    public ResponseEntity <ProductResponse> updateProductPartial(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest){
-        ProductResponse product = productService.updateProductPartial(id,productRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(product);
-    }
 
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponse>> findProductsByCategory(@PathVariable Long categoryId){
@@ -51,16 +47,21 @@ public class ProductController {
 
     }
 
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ProductResponse> deleteProductById(@PathVariable Long id){
-        productService.deleteProductById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @PatchMapping("/{id}")
+    public ResponseEntity <ProductResponse> updateProductPartial(@PathVariable Long id, @Valid @RequestBody ProductPatchRequest productPatchRequest){
+        ProductResponse product = productService.updateProductPartial(id,productPatchRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
+
     @PatchMapping("/{id}/active")
     public ResponseEntity<ProductResponse> updateProductActive(@PathVariable Long id, @Valid @RequestBody ActiveRequest activeRequest){
         ProductResponse productResponse = productService.updateProductActive(id,activeRequest.active());
                 return ResponseEntity.status(HttpStatus.OK).body(productResponse);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProductResponse> deleteProductById(@PathVariable Long id){
+        productService.deleteProductById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

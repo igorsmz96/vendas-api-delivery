@@ -1,4 +1,4 @@
-package com.vendas.api.delivery_api.config;
+package com.vendas.api.delivery_api.enums;
 
 
 

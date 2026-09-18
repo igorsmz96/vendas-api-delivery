@@ -1,9 +1,12 @@
 package com.vendas.api.delivery_api.mapper;
 
 import com.vendas.api.delivery_api.controllers.requestCreate.AddressRequest;
+import com.vendas.api.delivery_api.controllers.requestPatch.AddressPatchRequest;
 import com.vendas.api.delivery_api.controllers.response.AddressResponse;
 import com.vendas.api.delivery_api.entities.Address;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class AddressMapper {
@@ -32,6 +35,14 @@ public class AddressMapper {
                 address.getNumero(),
                 address.getBairro(),
                 address.getCidade());
+    }
+
+    public void updatePartial (AddressPatchRequest addressPatchRequest, Address address){
+        Optional.ofNullable(addressPatchRequest.cep()).ifPresent(address::setCep);
+        Optional.ofNullable(addressPatchRequest.rua()).ifPresent(address::setRua);
+        Optional.ofNullable(addressPatchRequest.numero()).ifPresent(address::setNumero);
+        Optional.ofNullable(addressPatchRequest.bairro()).ifPresent(address::setBairro);
+        Optional.ofNullable(addressPatchRequest.cidade()).ifPresent(address::setCidade);
     }
 }
 
